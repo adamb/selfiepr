@@ -1,0 +1,11 @@
+name = "selfiepr"
+compatibility_date = "2025-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "selfiepr-db"
+database_id = ""
+
+[[r2_buckets]]
+binding = "SELFIE_BUCKET"
+bucket_name = "selfie-bucket"

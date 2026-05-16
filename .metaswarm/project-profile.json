@@ -1,0 +1,25 @@
+{
+  "project": {
+    "name": "selfiepr",
+    "type": "sveltekit",
+    "language": "typescript",
+    "framework": "sveltekit",
+    "platform": "cloudflare-pages"
+  },
+  "config": {
+    "packageManager": "npm",
+    "adapter": "@sveltejs/adapter-cloudflare",
+    "css": "tailwindcss-v4",
+    "types": "typescript"
+  },
+  "bindings": {
+    "d1": ["DB"],
+    "r2": ["SELFIE_BUCKET"]
+  },
+  "tools": {
+    "deploy": "wrangler pages deploy",
+    "dev": "npm run dev",
+    "build": "npm run build",
+    "check": "npm run check"
+  }
+}
