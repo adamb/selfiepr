@@ -10,3 +10,4 @@ vite.config.ts.timestamp-*
 .wrangler
 coverage/
 .vitest/
+.dev.vars

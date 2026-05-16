@@ -1,11 +1,29 @@
 name = "selfiepr"
 compatibility_date = "2025-01-01"
+compatibility_flags = ["nodejs_compat"]
 
 [[d1_databases]]
 binding = "DB"
 database_name = "selfiepr-db"
-database_id = ""
+database_id = "local-dev-placeholder"
+migrations_dir = "migrations"
 
 [[r2_buckets]]
 binding = "SELFIE_BUCKET"
 bucket_name = "selfie-bucket"
+
+[vars]
+# Public vars (not secrets)
+# PUBLIC_R2_URL = "https://..."  # Set in Cloudflare dashboard or .dev.vars
+
+# Secrets (set via `wrangler secret put`):
+# SUPABASE_URL
+# SUPABASE_ANON_KEY
+# SUPABASE_SERVICE_ROLE_KEY
+# REPLICATE_API_TOKEN
+# REPLICATE_USERNAME
+# REPLICATE_WEBHOOK_SIGNING_KEY
+# STRIPE_SECRET_KEY
+# STRIPE_WEBHOOK_SECRET
+# STRIPE_SUCCESS_URL
+# STRIPE_CANCEL_URL
