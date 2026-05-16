@@ -13,7 +13,9 @@ binding = "SELFIE_BUCKET"
 bucket_name = "selfie-bucket"
 
 [vars]
-# Public vars (not secrets)
+# Public vars (not secrets) — also set in .dev.vars for local dev
+PUBLIC_SUPABASE_URL = "https://placeholder.supabase.co"
+PUBLIC_SUPABASE_ANON_KEY = "placeholder"
 # PUBLIC_R2_URL = "https://..."  # Set in Cloudflare dashboard or .dev.vars
 
 # Secrets (set via `wrangler secret put`):

@@ -1,7 +1,13 @@
 /// <reference types="@sveltejs/kit" />
+/// <reference types="@cloudflare/workers-types" />
 
 declare global {
 	namespace App {
+		interface Locals {
+			supabase: ReturnType<typeof import('@supabase/ssr').createServerClient>;
+			session: import('@supabase/supabase-js').Session | null;
+			user: import('@supabase/supabase-js').User | null;
+		}
 		interface Platform {
 			env: {
 				DB: D1Database;
