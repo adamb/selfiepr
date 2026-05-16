@@ -12,14 +12,36 @@
     "css": "tailwindcss-v4",
     "types": "typescript"
   },
+  "testing": {
+    "runner": "vitest",
+    "environment": "jsdom",
+    "setupFile": "src/test-setup.ts",
+    "configFile": "vitest.config.ts",
+    "coverageProvider": "v8",
+    "testLibrary": "@testing-library/svelte",
+    "coverageThresholdsFile": ".coverage-thresholds.json"
+  },
+  "ci": {
+    "platform": "github-actions",
+    "coverageEnforcement": true
+  },
+  "externalTools": {
+    "codex": false,
+    "gemini": false,
+    "reviewMode": "claude-only"
+  },
   "bindings": {
     "d1": ["DB"],
     "r2": ["SELFIE_BUCKET"]
   },
   "tools": {
-    "deploy": "wrangler pages deploy",
+    "deploy": "npx wrangler pages deploy",
     "dev": "npm run dev",
     "build": "npm run build",
-    "check": "npm run check"
+    "check": "npm run check",
+    "test": "npx vitest run",
+    "test:watch": "npx vitest",
+    "test:coverage": "npx vitest run --coverage",
+    "typecheck": "npm run check"
   }
 }
