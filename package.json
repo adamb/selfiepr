@@ -36,6 +36,7 @@
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.105.4",
+    "jszip": "^3.10.1",
     "stripe": "^22.1.1"
   }
 }
