@@ -10,8 +10,8 @@ const config = {
 			publicPrefix: 'PUBLIC_'
 		},
 		csrf: {
-			// Allow form submissions from any origin (needed for Tailscale proxy)
-			checkOrigin: false
+			// Trust Tailscale proxy origins
+			trustedOrigins: ['https://hermes.tail1df8a8.ts.net', 'http://localhost:8788']
 		}
 	}
 };

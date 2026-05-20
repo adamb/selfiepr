@@ -1,1 +1,44 @@
 @import "tailwindcss";
+
+@theme {
+	/* Dark luxury theme */
+	--color-bg: #080808;
+	--color-bg-card: #1a1a1a;
+	--color-text: #F0EBE1;
+	--color-text-muted: #F0EBE180;
+	--color-accent: #D4A853;
+	--color-accent-hover: #D4A85390;
+	--color-border: #333333;
+	--color-border-hover: #D4A85380;
+
+	/* Fonts */
+	--font-display: 'Cormorant Garamond', serif;
+	--font-body: 'DM Sans', sans-serif;
+	--font-mono: 'DM Mono', monospace;
+}
+
+/* Base styles */
+body {
+	font-family: var(--font-body);
+	background-color: var(--color-bg);
+	color: var(--color-text);
+}
+
+/* Smooth scrolling */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Animation for training page */
+@keyframes spin-slow {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.animate-spin-slow {
+	animation: spin-slow 3s linear infinite;
+}

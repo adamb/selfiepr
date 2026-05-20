@@ -39,7 +39,8 @@
 			if (result.type === 'redirect') {
 				await goto(result.location);
 			} else if (result.type === 'failure') {
-				errorMessage = result.data?.error || 'An error occurred';
+				const data = result.data as { error?: string } | undefined;
+				errorMessage = data?.error || 'An error occurred';
 			}
 			update();
 		};
@@ -106,7 +107,8 @@
 				if (result.type === 'redirect') {
 					await goto(result.location);
 				} else if (result.type === 'failure') {
-					errorMessage = result.data?.error || 'An error occurred';
+					const data = result.data as { error?: string } | undefined;
+					errorMessage = data?.error || 'An error occurred';
 				}
 				update();
 			};
