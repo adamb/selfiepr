@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 
 	let { data } = $props();
 	let email = $state('');
@@ -29,7 +30,21 @@
 	</div>
 {/if}
 
-<form method="POST" use:enhance={() => { loading = true; return () => { loading = false; }; }}>
+<form
+	method="POST"
+	use:enhance={() => {
+		loading = true;
+		return async ({ result, update }) => {
+			loading = false;
+			if (result.type === 'redirect') {
+				await goto(result.location);
+			} else if (result.type === 'failure') {
+				errorMessage = result.data?.error || 'An error occurred';
+			}
+			update();
+		};
+	}}
+>
 	<div class="space-y-4">
 		<div>
 			<label for="email" class="block text-sm font-medium text-[#F0EBE1]/80 mb-1">Email</label>
@@ -82,7 +97,21 @@
 		</div>
 	</div>
 
-	<form method="POST" use:enhance={() => { loading = true; return () => { loading = false; }; }}>
+	<form
+		method="POST"
+		use:enhance={() => {
+			loading = true;
+			return async ({ result, update }) => {
+				loading = false;
+				if (result.type === 'redirect') {
+					await goto(result.location);
+				} else if (result.type === 'failure') {
+					errorMessage = result.data?.error || 'An error occurred';
+				}
+				update();
+			};
+		}}
+	>
 		<input type="hidden" name="provider" value="google" />
 		<button
 			type="submit"

@@ -8,6 +8,10 @@ const config = {
 		adapter: adapter(),
 		env: {
 			publicPrefix: 'PUBLIC_'
+		},
+		csrf: {
+			// Allow form submissions from any origin (needed for Tailscale proxy)
+			checkOrigin: false
 		}
 	}
 };
