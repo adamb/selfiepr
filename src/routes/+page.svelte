@@ -36,6 +36,7 @@
 		<p class="text-[#F0EBE1]/60 text-xl text-center max-w-2xl mb-12">
 			Train a personalized AI model on your photos. Generate stunning portraits in any style — cinematic, anime, oil painting, and more.
 		</p>
+		<p class="text-[#D4A853] text-sm mb-8">Auto-deploy active ✓</p>
 		<div class="flex gap-4">
 			<a
 				href="/auth/signup"
