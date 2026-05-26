@@ -13,20 +13,15 @@ migrations_dir = "migrations"
 binding = "SELFIE_BUCKET"
 bucket_name = "selfie-bucket"
 
-[vars]
-# Public vars (not secrets) — also set in .dev.vars for local dev
-PUBLIC_SUPABASE_URL = "https://placeholder.supabase.co"
-PUBLIC_SUPABASE_ANON_KEY = "placeholder"
-# PUBLIC_R2_URL = "https://..."  # Set in Cloudflare dashboard or .dev.vars
-
-# Secrets (set via `wrangler secret put`):
-# SUPABASE_URL
-# SUPABASE_ANON_KEY
-# SUPABASE_SERVICE_ROLE_KEY
-# REPLICATE_API_TOKEN
-# REPLICATE_USERNAME
-# REPLICATE_WEBHOOK_SIGNING_KEY
-# STRIPE_SECRET_KEY
-# STRIPE_WEBHOOK_SECRET
-# STRIPE_SUCCESS_URL
-# STRIPE_CANCEL_URL
+# Environment variables are managed in Cloudflare Pages dashboard:
+# Settings → Environment Variables
+#
+# Required vars:
+# - SUPABASE_URL
+# - SUPABASE_ANON_KEY
+# - PUBLIC_SUPABASE_URL
+# - PUBLIC_SUPABASE_ANON_KEY
+# - REPLICATE_API_TOKEN
+# - PUBLIC_R2_URL
+# - STRIPE_SECRET_KEY
+# - STRIPE_WEBHOOK_SECRET
