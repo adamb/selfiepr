@@ -13,14 +13,14 @@ migrations_dir = "migrations"
 binding = "SELFIE_BUCKET"
 bucket_name = "selfie-bucket"
 
-# Environment variables are managed in Cloudflare Pages dashboard:
-# Settings → Environment Variables
-#
-# Required vars:
-# - SUPABASE_URL
-# - SUPABASE_ANON_KEY
-# - PUBLIC_SUPABASE_URL
-# - PUBLIC_SUPABASE_ANON_KEY
+# Public vars (non-secret)
+[vars]
+SUPABASE_URL = "https://ybrxeupsthtbzqmpwivq.supabase.co"
+SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlicnhldXBzdGh0YnpxbXB3aXZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyMTMxNTUsImV4cCI6MjA5NDc4OTE1NX0.SKRvPSo0t8OnjEMxEse0fTBy68OlEBKfcGNVH9cmPmU"
+PUBLIC_SUPABASE_URL = "https://ybrxeupsthtbzqmpwivq.supabase.co"
+PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlicnhldXBzdGh0YnpxbXB3aXZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkyMTMxNTUsImV4cCI6MjA5NDc4OTE1NX0.SKRvPSo0t8OnjEMxEse0fTBy68OlEBKfcGNVH9cmPmU"
+
+# Secrets (set in Cloudflare dashboard):
 # - REPLICATE_API_TOKEN
 # - PUBLIC_R2_URL
 # - STRIPE_SECRET_KEY
