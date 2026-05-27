@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { POST } from './+server.js';
+import { POST } from '../checkout/+server.js';
 import { createMockRequestEvent, createMockD1Database } from '$lib/test-utils.js';
 import { getStripeClient } from '$lib/stripe/server.js';
 import { error } from '@sveltejs/kit';
