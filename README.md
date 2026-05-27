@@ -60,6 +60,15 @@ Enable public access in Cloudflare dashboard and update `PUBLIC_R2_URL` accordin
 
 > ⚠️ **Note**: The current `PUBLIC_R2_URL` in `wrangler.toml` is for development only. Before production, replace with your production R2 public URL.
 
+### Google OAuth Setup
+
+TODO: Configure Google OAuth in Supabase:
+1. Enable Google provider in Supabase → Authentication → Providers
+2. Create Google OAuth credentials at console.cloud.google.com
+3. Add redirect URI: `https://ybrxeupsthtbzqmpwivq.supabase.co/auth/v1/callback`
+4. Add production URL to allowed origins: `https://selfiepr.pages.dev`
+5. Configure Site URL and Redirect URLs in Supabase
+
 ## Testing
 
 ```bash
