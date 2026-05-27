@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
 	plugins: [tailwindcss(), sveltekit()],
 	test: {
-		include: ['src/**/*.{test,spec}.{js,ts}', 'src/__tests__/**/*.{test,spec}.{js,ts}'],
+		include: ['src/**/*.{test,spec}.{js,ts}', 'src/__tests__/**/*.{test,spec}.{js,ts}', 'tests/**/*.test.{js,ts}'],
 		environment: 'jsdom',
 		setupFiles: ['src/test-setup.ts'],
 		coverage: {
