@@ -47,11 +47,10 @@ export function estimateTrainingCost(): { minCents: number; maxCents: number } {
 	// Training typically takes 5-15 minutes on A100 (40GB)
 	const minSeconds = 5 * 60;
 	const maxSeconds = 15 * 60;
-	const rate = HARDWARE_RATES['Nvidia A100 (40GB)'].ratePerSecond;
 
 	return {
-		minCents: Math.ceil(minSeconds * rate * 100 * 2), // 2x markup
-		maxCents: Math.ceil(maxSeconds * rate * 100 * 2)
+		minCents: calculateDeductionCents(calculateCostCents('Nvidia A100 (40GB)', minSeconds)),
+		maxCents: calculateDeductionCents(calculateCostCents('Nvidia A100 (40GB)', maxSeconds))
 	};
 }
 
@@ -62,10 +61,9 @@ export function estimateGenerationCost(): { minCents: number; maxCents: number }
 	// Generation typically takes 10-30 seconds
 	const minSeconds = 10;
 	const maxSeconds = 30;
-	const rate = HARDWARE_RATES['Nvidia A100 (40GB)'].ratePerSecond;
 
 	return {
-		minCents: Math.ceil(minSeconds * rate * 100 * 2), // 2x markup
-		maxCents: Math.ceil(maxSeconds * rate * 100 * 2)
+		minCents: calculateDeductionCents(calculateCostCents('Nvidia A100 (40GB)', minSeconds)),
+		maxCents: calculateDeductionCents(calculateCostCents('Nvidia A100 (40GB)', maxSeconds))
 	};
 }
