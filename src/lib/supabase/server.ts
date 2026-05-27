@@ -2,12 +2,14 @@ import { createServerClient } from '@supabase/ssr';
 import type { Handle, RequestEvent } from '@sveltejs/kit';
 
 function getSupabaseClient(event: RequestEvent) {
+	// Env vars are set via wrangler.toml [vars] and accessed via platform.env
 	const supabaseUrl = event.platform?.env?.SUPABASE_URL ?? '';
 	const supabaseAnonKey = event.platform?.env?.SUPABASE_ANON_KEY ?? '';
 
 	if (!supabaseUrl || !supabaseAnonKey) {
+		console.error('Missing Supabase config. Available env vars:', Object.keys(event.platform?.env ?? {}));
 		throw new Error(
-			'SUPABASE_URL and SUPABASE_ANON_KEY must be set in platform.env or .dev.vars'
+			`SUPABASE_URL and SUPABASE_ANON_KEY must be set. Got URL: ${supabaseUrl ? 'set' : 'missing'}, Key: ${supabaseAnonKey ? 'set' : 'missing'}`
 		);
 	}
 
