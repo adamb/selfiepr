@@ -8,6 +8,35 @@
 - **Adapter**: `@sveltejs/adapter-cloudflare`
 - **Styling**: Tailwind CSS v4 (`@import "tailwindcss"` in `src/app.css`)
 
+## Current Status (as of 2026-06-11)
+
+### Deployment
+- **Live URL:** https://532ccb7a.selfiepr.pages.dev
+- **Last successful deploy:** May 27, 2026
+- **CI Status:** Failing — `CLOUDFLARE_API_TOKEN` secret issue (user says it's now fixed, needs re-deploy)
+
+### Pending Tasks (from todo list)
+1. Add `account_id` to `wrangler.toml` (fixes CLI auth errors)
+2. Create R2 bucket `selfie-bucket` (uploads will fail without it)
+3. Apply D1 migrations to production (`npx wrangler d1 migrations apply selfiepr-db --remote`)
+4. Configure Cloudflare secrets (9 env vars: REPLICATE_API_TOKEN, REPLICATE_USERNAME, REPLICATE_WEBHOOK_SIGNING_KEY, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_SUCCESS_URL, STRIPE_CANCEL_URL, PUBLIC_R2_URL, SUPABASE_SERVICE_ROLE_KEY)
+5. Fix GitHub Actions secrets (CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID) — user says done, needs verify
+6. Implement SVIX webhook verification (TODO in `src/routes/api/webhooks/replicate/+server.ts`)
+
+### Test Coverage
+- **Threshold:** 100% (per `.coverage-thresholds.json`)
+- **Current:** ~11% statements, ~8% branches
+- **Gap:** Route handlers, Svelte pages, Supabase client/server have 0% coverage
+
+### Implementation Plan
+- Located at `.beads/plans/selfie-v2-implementation.md`
+- WU1-WU6 appear complete
+- WU7 (Replicate webhook) has SVIX verification TODO
+- WU8 (Cost & Landing) complete
+
+### Uncommitted Local Changes
+- Commit `01c6964` "Update @vitest/coverage-v8 to 4.1.8" — minor dev dependency bump, not yet pushed
+
 ## Bindings
 
 | Service | Binding Name | Config Location |
