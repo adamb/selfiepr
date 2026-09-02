@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { formatCentsAsDollars } from '$lib/stripe/server.js';
+	import { formatCentsAsDollars } from '$lib/stripe/shared.js';
 
 	let { data } = $props();
 

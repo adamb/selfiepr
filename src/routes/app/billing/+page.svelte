@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
-	import { TOP_UP_AMOUNTS, formatCentsAsDollars } from '$lib/stripe/server.js';
+	import { TOP_UP_AMOUNTS, formatCentsAsDollars } from '$lib/stripe/shared.js';
 
 	let { data } = $props();
 	let loading = $state<number | null>(null);

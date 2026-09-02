@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resizeImage, validateImageFile } from '$lib/images/resize.js';
-	import { formatCentsAsDollars } from '$lib/stripe/server.js';
+	import { formatCentsAsDollars } from '$lib/stripe/shared.js';
 
 	let { data } = $props();
 	let files = $state<File[]>([]);
