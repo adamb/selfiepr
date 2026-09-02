@@ -16,7 +16,7 @@ const STYLE_PRESETS: Record<string, string> = {
 	fantasy: 'TOK, fantasy portrait, magical atmosphere, ethereal lighting'
 };
 
-export const POST: RequestHandler = async ({ request, locals, platform }) => {
+export const POST: RequestHandler = async ({ request, locals, platform, url }) => {
 	// Validate session
 	if (!locals.session || !locals.user) {
 		throw error(401, 'Unauthorized');
@@ -89,9 +89,7 @@ export const POST: RequestHandler = async ({ request, locals, platform }) => {
 		throw error(500, 'Replicate API not configured');
 	}
 
-	const publicR2Url = platform?.env?.PUBLIC_R2_URL ?? 'http://localhost:8788/r2';
-	const baseUrl = publicR2Url.replace(/\/[^/]*$/, '');
-	const webhookUrl = `${baseUrl.replace(/\/[^/]*$/, '')}/api/webhooks/replicate`;
+		const webhookUrl = `${url.origin}/api/webhooks/replicate`;
 
 	const replicate = getReplicateClient(replicateToken);
 

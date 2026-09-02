@@ -87,8 +87,12 @@ export async function getModelById(db: D1Database, modelId: string): Promise<Use
 	return db.prepare('SELECT * FROM user_models WHERE id = ?').bind(modelId).first<UserModel>();
 }
 
-export async function createModel(db: D1Database, model: NewUserModel): Promise<void> {
+export async function createModel(
+	db: D1Database,
+	model: Pick<NewUserModel, 'id' | 'user_id' | 'status'> & Partial<Omit<NewUserModel, 'id' | 'user_id' | 'status'>>
+): Promise<void> {
 	const timestamp = now();
+	// D1 .bind() rejects undefined — coerce omitted optionals to null
 	await db
 		.prepare(
 			`INSERT INTO user_models (id, user_id, replicate_training_id, replicate_model_name, lora_weights_url, status, training_cost_cents, deducted_cents, hardware, predict_time_seconds, error_message, superseded_by, created_at, updated_at)
@@ -97,16 +101,16 @@ export async function createModel(db: D1Database, model: NewUserModel): Promise<
 		.bind(
 			model.id,
 			model.user_id,
-			model.replicate_training_id,
-			model.replicate_model_name,
-			model.lora_weights_url,
+			model.replicate_training_id ?? null,
+			model.replicate_model_name ?? null,
+			model.lora_weights_url ?? null,
 			model.status,
-			model.training_cost_cents,
-			model.deducted_cents,
-			model.hardware,
-			model.predict_time_seconds,
-			model.error_message,
-			model.superseded_by,
+			model.training_cost_cents ?? null,
+			model.deducted_cents ?? null,
+			model.hardware ?? null,
+			model.predict_time_seconds ?? null,
+			model.error_message ?? null,
+			model.superseded_by ?? null,
 			timestamp,
 			timestamp
 		)
@@ -118,7 +122,7 @@ export async function updateModelStatus(
 	modelId: string,
 	fromStatus: UserModelStatus,
 	toStatus: UserModelStatus,
-	updates: Partial<Pick<UserModel, 'replicate_training_id' | 'lora_weights_url' | 'training_cost_cents' | 'deducted_cents' | 'hardware' | 'predict_time_seconds' | 'error_message'>> = {}
+	updates: Partial<Pick<UserModel, 'replicate_training_id' | 'replicate_model_name' | 'lora_weights_url' | 'training_cost_cents' | 'deducted_cents' | 'hardware' | 'predict_time_seconds' | 'error_message'>> = {}
 ): Promise<boolean> {
 	const timestamp = now();
 	const setClauses: string[] = ['status = ?', 'updated_at = ?'];
@@ -141,7 +145,11 @@ export async function updateModelStatus(
 
 // ── Generations ──
 
-export async function createGeneration(db: D1Database, generation: NewGeneration): Promise<void> {
+export async function createGeneration(
+	db: D1Database,
+	generation: Pick<NewGeneration, 'id' | 'user_id' | 'model_id' | 'prompt' | 'status'> &
+		Partial<Omit<NewGeneration, 'id' | 'user_id' | 'model_id' | 'prompt' | 'status'>>
+): Promise<void> {
 	const timestamp = now();
 	await db
 		.prepare(
@@ -153,16 +161,16 @@ export async function createGeneration(db: D1Database, generation: NewGeneration
 			generation.user_id,
 			generation.model_id,
 			generation.prompt,
-			generation.style_preset,
-			generation.replicate_prediction_id,
+			generation.style_preset ?? null,
+			generation.replicate_prediction_id ?? null,
 			generation.status,
-			generation.output_image_url,
-			generation.output_r2_key,
-			generation.cost_cents,
-			generation.deducted_cents,
-			generation.hardware,
-			generation.predict_time_seconds,
-			generation.error_message,
+			generation.output_image_url ?? null,
+			generation.output_r2_key ?? null,
+			generation.cost_cents ?? null,
+			generation.deducted_cents ?? null,
+			generation.hardware ?? null,
+			generation.predict_time_seconds ?? null,
+			generation.error_message ?? null,
 			timestamp,
 			timestamp
 		)
