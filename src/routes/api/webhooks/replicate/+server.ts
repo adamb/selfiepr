@@ -10,7 +10,7 @@ interface ReplicateWebhookPayload {
 	model?: string;
 	version?: string;
 	input?: Record<string, unknown>;
-	output?: string | string[] | null;
+	output?: string | string[] | Record<string, unknown> | null;
 	error?: string;
 	metrics?: {
 		predict_time?: number;
@@ -84,17 +84,37 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 	return json({ received: true, status: 'unknown_job' });
 };
 
+function extractTrainingWeightsUrl(
+	output: string | string[] | Record<string, unknown> | null | undefined
+): string | null {
+	if (!output) return null;
+	if (typeof output === 'string') return output;
+	if (Array.isArray(output)) return typeof output[0] === 'string' ? output[0] : null;
+	// Flux LoRA trainer returns { version, weights }
+	const weights = output.weights;
+	if (typeof weights === 'string' && weights.length > 0) return weights;
+	const version = output.version;
+	if (typeof version === 'string' && version.length > 0) return version;
+	return null;
+}
+
 async function handleTrainingWebhook(
 	db: D1Database,
 	model: { id: string; user_id: string; status: string },
 	status: string,
-	output: string | string[] | null,
+	output: string | string[] | Record<string, unknown> | null,
 	error: string | undefined,
 	metrics: { predict_time?: number; hardware?: string } | undefined
 ): Promise<Response> {
 	if (status === 'succeeded' && output) {
 		// Training succeeded
-		const weightsUrl = typeof output === 'string' ? output : output[0];
+		const weightsUrl = extractTrainingWeightsUrl(output);
+		if (!weightsUrl) {
+			await updateModelStatus(db, model.id, 'training', 'failed', {
+				error_message: 'Training succeeded but no weights URL in webhook output'
+			});
+			return json({ received: true, status: 'training_missing_weights' });
+		}
 		const predictTime = metrics?.predict_time ?? 0;
 		const hardware = metrics?.hardware ?? 'Nvidia A100 (40GB)';
 
