@@ -129,7 +129,10 @@ describe('Billing checkout endpoint', () => {
 					expect.objectContaining({
 						price_data: expect.objectContaining({
 							currency: 'usd',
-							unit_amount: 1000
+							unit_amount: 1000,
+							product_data: expect.objectContaining({
+								tax_code: 'txcd_10000000'
+							})
 						}),
 						quantity: 1
 					})
