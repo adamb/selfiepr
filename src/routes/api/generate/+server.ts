@@ -8,7 +8,7 @@ const MIN_BALANCE_CENTS = 15; // $0.15 minimum for generation
 
 // Style presets - all include TOK trigger word
 const STYLE_PRESETS: Record<string, string> = {
-	cinematic: 'TOK, cinematic portrait, dramatic lighting, film grain',
+	cinematic: 'TOK, close-up portrait, face clearly visible, looking at camera, cinematic lighting, dramatic lighting, film grain',
 	anime: 'TOK, anime style portrait, vibrant colors, detailed illustration',
 	oil_painting: 'TOK, oil painting portrait, classical art style, brushstrokes visible',
 	neon_noir: 'TOK, neon noir portrait, cyberpunk lighting, moody atmosphere',
