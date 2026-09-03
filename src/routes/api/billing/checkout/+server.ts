@@ -42,14 +42,15 @@ export const POST: RequestHandler = async ({ request, locals, platform }) => {
 					unit_amount: amountCents,
 					product_data: {
 						name: `Selfie Balance: $${(amountCents / 100).toFixed(2)}`,
-						description: 'Add balance to your Selfie account for AI portrait generation'
+						description: 'Add balance to your Selfie account for AI portrait generation',
+						tax_code: 'txcd_10000000'  // General - Electronically Supplied Services
 					}
 				},
 				quantity: 1
 			}
 		],
-		success_url: platform?.env?.STRIPE_SUCCESS_URL ?? 'http://localhost:8788/app/billing?topup=success',
-		cancel_url: platform?.env?.STRIPE_CANCEL_URL ?? 'http://localhost:8788/app/billing?topup=cancel',
+		success_url: platform?.env?.STRIPE_SUCCESS_URL ?? 'https://selfiepr.pages.dev/app/billing?topup=success',
+		cancel_url: platform?.env?.STRIPE_CANCEL_URL ?? 'https://selfiepr.pages.dev/app/billing?topup=cancel',
 		metadata: {
 			user_id: userId,
 			purchase_id: purchaseId,
