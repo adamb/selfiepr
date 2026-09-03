@@ -122,9 +122,15 @@ async function handleTrainingWebhook(
 		const costCents = calculateCostCents(hardware, predictTime);
 		const deductionCents = calculateDeductionCents(costCents);
 
-		// Update model to succeeded
+		const versionId =
+			output && typeof output === 'object' && !Array.isArray(output) && typeof output.version === 'string'
+				? output.version
+				: null;
+
+		// Update model to succeeded (store full owner/name:hash for generate)
 		await updateModelStatus(db, model.id, 'training', 'succeeded', {
 			lora_weights_url: weightsUrl,
+			...(versionId ? { replicate_model_name: versionId } : {}),
 			hardware,
 			predict_time_seconds: predictTime,
 			training_cost_cents: costCents,

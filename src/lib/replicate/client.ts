@@ -20,7 +20,8 @@ export interface TrainingMetrics {
 
 export interface PredictionInput {
 	prompt: string;
-	hf_lora: string; // URL to LoRA weights
+	/** Full "owner/name:versionHash" for the trained destination model */
+	modelVersion: string;
 }
 
 export interface ReplicateClient {
@@ -80,7 +81,6 @@ export function getReplicateClient(apiToken: string): ReplicateClient {
 				throw new Error(`Replicate API error: ${getRes.status} - ${error}`);
 			}
 
-			// Destination models for Flux LoRA trainings are fine on cpu visibility private
 			await fetchApi('/models', {
 				method: 'POST',
 				body: JSON.stringify({
@@ -114,13 +114,16 @@ export function getReplicateClient(apiToken: string): ReplicateClient {
 		},
 
 		async startPrediction(input: PredictionInput, webhookUrl: string) {
+			// Trained Flux LoRA destinations are invoked by version id, not via
+			// black-forest-labs/flux-dev-lora + hf_lora (that returns 422).
 			const response = await fetchApi<{ id: string }>('/predictions', {
 				method: 'POST',
 				body: JSON.stringify({
-					model: 'black-forest-labs/flux-dev-lora',
+					version: input.modelVersion.includes(':')
+						? input.modelVersion.split(':')[1]
+						: input.modelVersion,
 					input: {
-						prompt: input.prompt,
-						hf_lora: input.hf_lora
+						prompt: input.prompt
 					},
 					webhook: webhookUrl,
 					webhook_events_filter: ['start', 'completed']
