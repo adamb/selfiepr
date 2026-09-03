@@ -37,6 +37,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@mediapipe/tasks-vision": "^1.0.1",
     "@supabase/ssr": "^0.10.3",
     "@supabase/supabase-js": "^2.105.4",
     "jszip": "^3.10.1",

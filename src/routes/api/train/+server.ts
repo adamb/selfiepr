@@ -6,8 +6,8 @@ import { getReplicateClient } from '$lib/replicate/client.js';
 import JSZip from 'jszip';
 
 const MIN_BALANCE_CENTS = 300; // $3.00 minimum for training
-const MIN_PHOTOS = 5;
-const MAX_PHOTOS = 10;
+const MIN_PHOTOS = 10;
+const MAX_PHOTOS = 20;
 const TRAINING_STEPS = 1000;
 const TRIGGER_WORD = 'TOK';
 
