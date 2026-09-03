@@ -11,7 +11,7 @@
 	let error = $state('');
 
 	const styles = [
-		{ id: 'cinematic', name: 'Cinematic', desc: 'Dramatic lighting, film grain' },
+		{ id: 'cinematic', name: 'Cinematic', desc: 'Close-up face, dramatic lighting' },
 		{ id: 'anime', name: 'Anime', desc: 'Vibrant colors, illustration' },
 		{ id: 'oil_painting', name: 'Oil Painting', desc: 'Classical art style' },
 		{ id: 'neon_noir', name: 'Neon Noir', desc: 'Cyberpunk, moody' },
