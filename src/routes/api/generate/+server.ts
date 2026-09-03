@@ -41,8 +41,15 @@ export const POST: RequestHandler = async ({ request, locals, platform, url }) =
 		throw error(400, 'No trained model found. Please train a model first.');
 	}
 
-	if (!model.lora_weights_url) {
-		throw error(500, 'Model weights not found.');
+	// Prefer full "owner/name:hash" from training; fall back to lora_weights_url if it looks like a version
+	const modelVersion =
+		model.replicate_model_name?.includes(':')
+			? model.replicate_model_name
+			: model.lora_weights_url?.includes(':')
+				? model.lora_weights_url
+				: null;
+	if (!modelVersion) {
+		throw error(500, 'Model version not found. Retrain or backfill replicate_model_name with owner/name:hash.');
 	}
 
 	// Parse request body
@@ -97,7 +104,7 @@ export const POST: RequestHandler = async ({ request, locals, platform, url }) =
 		const { id: predictionId } = await replicate.startPrediction(
 			{
 				prompt,
-				hf_lora: model.lora_weights_url
+				modelVersion
 			},
 			webhookUrl
 		);
@@ -116,6 +123,7 @@ export const POST: RequestHandler = async ({ request, locals, platform, url }) =
 			.bind('failed', err instanceof Error ? err.message : 'Failed to start generation', generationId)
 			.run();
 
-		throw error(500, 'Failed to start generation. Please try again.');
+		const msg = err instanceof Error ? err.message : 'Failed to start generation';
+		return json({ message: `Failed to start generation: ${msg}` }, { status: 500 });
 	}
 };
