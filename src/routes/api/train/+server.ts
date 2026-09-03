@@ -67,7 +67,8 @@ export const POST: RequestHandler = async ({ request, locals, platform, url }) =
 	const timestamp = Date.now();
 	const modelId = crypto.randomUUID();
 
-	const replicateUsername = platform?.env?.REPLICATE_USERNAME;
+	// Prefer Pages/wrangler env; username is public (Replicate owner slug), not a secret
+	const replicateUsername = platform?.env?.REPLICATE_USERNAME?.trim() || 'adamb';
 	if (!replicateUsername) {
 		throw error(500, 'Replicate username not configured');
 	}
